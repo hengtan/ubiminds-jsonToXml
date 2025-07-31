@@ -1,3 +1,5 @@
+using FluentValidation;
+using Ubiminds.Application.Commands.ConvertToXml;
 using Ubiminds.Domain.Interfaces;
 using Ubiminds.Infrastructure;
 using Ubiminds.Infrastructure.Messaging.InMemory;
@@ -13,6 +15,7 @@ public static class InfrastructureExtension
         services.AddSingleton<IXmlConverter, XmlConverter>();
         services.AddScoped<IMessagePublisher, InMemoryPublisher>();
         services.AddHostedService<InMemoryBackgroundConsumer>();
+        services.AddValidatorsFromAssemblyContaining<ConvertToXmlValidator>();
 
         return services;
     }

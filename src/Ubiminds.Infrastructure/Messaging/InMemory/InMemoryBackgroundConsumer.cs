@@ -2,7 +2,6 @@ using System.Text;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Ubiminds.Domain.Models;
 using Ubiminds.Domain.Models.InputModels;
 using Ubiminds.Infrastructure.Configuration;
 using Ubiminds.Infrastructure.Xml.Interfaces;
@@ -23,7 +22,7 @@ public sealed class InMemoryBackgroundConsumer(
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _logger.LogInformation("📥 In-memory XML consumer started. Output directory: {OutputDirectory}", _outputDirectory);
+        _logger.LogInformation("In-memory XML consumer started. Output directory: {OutputDirectory}", _outputDirectory);
 
         EnsureOutputDirectoryExists();
 
@@ -33,25 +32,25 @@ public sealed class InMemoryBackgroundConsumer(
 
             if (message is not DocumentInputModel inputData)
             {
-                _logger.LogWarning("⚠️ Skipped message: expected {ExpectedType} but received {ActualType}",
+                _logger.LogWarning("Skipped message: expected {ExpectedType} but received {ActualType}",
                     nameof(DocumentInputModel), message?.GetType().Name ?? "null");
                 continue;
             }
 
-            _logger.LogInformation("📝 Processing message: Title={Title}, Status={Status}, PublishDate={PublishDate}",
+            _logger.LogInformation("Processing message: Title={Title}, Status={Status}, PublishDate={PublishDate}",
                 inputData.Title, inputData.Status, inputData.PublishDate);
 
             await ProcessMessageAsync(inputData, stoppingToken);
         }
 
-        _logger.LogInformation("🛑 In-memory consumer has stopped.");
+        _logger.LogInformation("In-memory consumer has stopped.");
     }
 
     private async Task ProcessMessageAsync(DocumentInputModel data, CancellationToken token)
     {
         if (!data.IsValidForXml())
         {
-            _logger.LogWarning("🚫 Skipped XML generation: business rule not satisfied | Status={Status}, PublishDate={PublishDate}",
+            _logger.LogWarning("Skipped XML generation: business rule not satisfied | Status={Status}, PublishDate={PublishDate}",
                 data.Status, data.PublishDate);
             return;
         }
@@ -67,7 +66,7 @@ public sealed class InMemoryBackgroundConsumer(
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "❌ Exception occurred while generating XML for Title={Title}", data.Title);
+            _logger.LogError(ex, "Exception occurred while generating XML for Title={Title}", data.Title);
         }
     }
 

@@ -1,6 +1,5 @@
 using MediatR;
 using Ubiminds.Application.Common;
-using Ubiminds.Domain.Models;
 using Ubiminds.Domain.Models.InputModels;
 
 namespace Ubiminds.Application.Commands.ConvertToXml;

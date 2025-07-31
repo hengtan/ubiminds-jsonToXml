@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-16"?>
-<DocumentInputModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Title>Ubiminds XML Test</Title>
-  <PublishDate>2024-08-24T10:00:00Z</PublishDate>
-  <Status>3</Status>
-  <TestRun>true</TestRun>
-</DocumentInputModel>

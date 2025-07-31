@@ -14,8 +14,6 @@ public static class SwaggerExtensions
                 Version = "v1",
                 Description = "API to validate and convert JSON into XML files using a background queue."
             });
-
-            // Adicione aqui autenticação JWT se quiser depois
         });
 
         return services;
@@ -23,12 +21,12 @@ public static class SwaggerExtensions
 
     public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
     {
-        app.UseSwagger(); // Gera o JSON da doc
+        app.UseSwagger();
 
         app.UseSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "JSON to XML Converter API v1");
-            options.RoutePrefix = "docs"; // acessa em /docs
+            options.RoutePrefix = "docs";
         });
 
         return app;
