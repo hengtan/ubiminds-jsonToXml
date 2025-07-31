@@ -1,0 +1,15 @@
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/bin/Debug/net9.0/Ubiminds.Infrastructure.deps.json
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/bin/Debug/net9.0/Ubiminds.Infrastructure.dll
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/bin/Debug/net9.0/Ubiminds.Infrastructure.pdb
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/bin/Debug/net9.0/Ubiminds.Domain.dll
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/bin/Debug/net9.0/Ubiminds.Domain.pdb
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/Ubiminds.Infrastructure.csproj.AssemblyReference.cache
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/Ubiminds.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/Ubiminds.Infrastructure.AssemblyInfoInputs.cache
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/Ubiminds.Infrastructure.AssemblyInfo.cs
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/Ubiminds.Infrastructure.csproj.CoreCompileInputs.cache
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/Ubiminds.665AE83D.Up2Date
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/Ubiminds.Infrastructure.dll
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/refint/Ubiminds.Infrastructure.dll
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/Ubiminds.Infrastructure.pdb
+/Users/hengtan/RiderProjects/ubiminds-jsontoXml/src/Ubiminds.Infrastructure/obj/Debug/net9.0/ref/Ubiminds.Infrastructure.dll

@@ -1,0 +1,6 @@
+{
+  "Ubiminds.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/hengtan\/RiderProjects\/ubiminds-jsontoXml\/src\/Ubiminds.API",
+  "Ubiminds.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/hengtan\/RiderProjects\/ubiminds-jsontoXml\/src\/Ubiminds.Application",
+  "Ubiminds.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/hengtan\/RiderProjects\/ubiminds-jsontoXml\/src\/Ubiminds.Domain",
+  "Ubiminds.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/hengtan\/RiderProjects\/ubiminds-jsontoXml\/src\/Ubiminds.Infrastructure"
+}
