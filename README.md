@@ -1,30 +1,30 @@
 # JSON to XML Converter – Ubiminds Challenge
 
-Este projeto é uma API REST em .NET que recebe um JSON estruturado, valida regras de negócio e o converte para um XML formatado, salvando o resultado em disco.
+This project is a .NET REST API that receives a structured JSON, validates business rules, converts it to formatted XML, and saves the result to disk.
 
-## Requisitos
+## Requirements
 
 - .NET 9 SDK
-- Visual Studio, Rider ou VS Code
-- (Opcional) Docker
+- Visual Studio, Rider, or VS Code
+- (Optional) Docker
 
-## Execução local
+## Running Locally
 
-1. Clone o repositório:
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/sua-conta/ubiminds-jsontoXml.git
+git clone https://github.com/your-account/ubiminds-jsontoXml.git
 cd ubiminds-jsontoXml
 ```
 
-2. Rode a API:
+2. Run the API:
 
 ```bash
 cd src/Ubiminds.Api
 dotnet run
 ```
 
-> A aplicação estará disponível em:
+> The application will be available at:
 - `http://localhost:5000`
 - `https://localhost:5001`
 
@@ -32,74 +32,72 @@ dotnet run
 
 ### 1. POST `/convert`
 
-Recebe um `DocumentInputModel` com os dados em JSON e os envia para processamento assíncrono.
+Receives a `DocumentInputModel` with JSON data and sends it for asynchronous processing.
 
-Regras para conversão:
+Conversion rules:
 - `Status == 3`
 - `TestRun == true`
-- `PublishDate >= 24/08/2024`
+- `PublishDate >= 08/24/2024`
 
-Caso as regras não sejam atendidas, o XML não é gerado.
+If the rules are not met, XML will not be generated.
 
 ### 2. POST `/convert/file`
 
-Recebe um arquivo `.json`, realiza o mesmo processamento, e responde com confirmação.
+Receives a `.json` file, performs the same processing, and returns a confirmation response.
 
-Validações:
-- O arquivo precisa conter um JSON válido
-- O conteúdo será validado como `DocumentInputModel`
-- Retorna erro 400 com mensagens claras caso o modelo seja inválido
+Validations:
+- The file must contain valid JSON
+- The content must match the `DocumentInputModel` structure
+- Returns 400 error with clear messages if the model is invalid
 
-## Testes
+## Testing
 
-Execute todos os testes com:
+Run all tests with:
 
 ```bash
 dotnet test
 ```
 
-- Testes unitários validam as regras de negócio, conversão XML e tratamento de erros
-- Testes de integração validam o pipeline completo via WebApplicationFactory
-- Os testes seguem o padrão AAA e estão organizados por pasta
+- Unit tests validate business rules, XML conversion, and error handling
+- Integration tests validate the full pipeline via WebApplicationFactory
+- Tests follow the AAA pattern and are organized by folder
 
-## Arquitetura
+## Architecture
 
-Este projeto segue os princípios da **Clean Architecture** com separação clara de responsabilidades:
+This project follows **Clean Architecture** principles with clear separation of concerns:
 
 ```
 src/
-├── Ubiminds.Api               → Controllers, Middlewares e configuração
-├── Ubiminds.Application       → Casos de uso, Validadores e comandos
-├── Ubiminds.Domain            → Modelos e contratos puros
-├── Ubiminds.Infrastructure    → Serviços reais, como fila InMemory e conversor XML
-└── Ubiminds.Tests             → Testes unitários e de integração
+├── Ubiminds.Api               → Controllers, Middlewares, and configuration
+├── Ubiminds.Application       → Use cases, Validators, and commands
+├── Ubiminds.Domain            → Pure models and contracts
+├── Ubiminds.Infrastructure    → Real services, like InMemory queue and XML converter
+└── Ubiminds.Tests             → Unit and integration tests
 ```
 
-## Destaques técnicos
+## Technical Highlights
 
-- Conversão dinâmica de JSON aninhado para XML estruturado com preservação da hierarquia
-- Validações robustas com FluentValidation
-- Logs estruturados com Serilog para console e arquivos
-- Mensageria simulada com `InMemoryQueue`, facilmente adaptável para RabbitMQ ou Kafka
-- `Result<T>` pattern no lugar de exceções em fluxo de controle
-- Código limpo, com responsabilidade única por classe e testes bem organizados
+- Dynamic conversion of nested JSON into structured XML with hierarchy preservation
+- Robust validations using FluentValidation
+- Structured logging with Serilog (console and file outputs)
+- Simulated messaging with `InMemoryQueue`, easily switchable to RabbitMQ or Kafka
+- `Result<T>` pattern instead of exceptions for control flow
+- Clean code, single responsibility per class, and well-organized tests
 
-## Saída de arquivos XML
+## XML Output Files
 
-Os arquivos são salvos em:
+Files are saved in:
 
 ```
 /output/
 ```
 
-Com o nome no formato:
+With the name format:
 
 ```
 ubiminds-{Title}-{Timestamp}.xml
 ```
 
-Incluem todos os campos do JSON original, respeitando a estrutura e campos adicionais via `AdditionalData`.
+They include all fields from the original JSON, respecting structure and additional fields via `AdditionalData`.
 
 ---
-
-Desenvolvido para o desafio final da Ubiminds com foco em Clean Code, testabilidade, extensibilidade e clareza.
