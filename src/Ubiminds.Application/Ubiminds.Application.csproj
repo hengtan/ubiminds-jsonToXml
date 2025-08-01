@@ -7,13 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Ubiminds.Domain\Ubiminds.Domain.csproj" />
-      <ProjectReference Include="..\Ubiminds.Infrastructure\Ubiminds.Infrastructure.csproj" />
+      <ProjectReference Include="..\Ubiminds.Domain\Ubiminds.Domain.csproj" />      
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="12.0.0" />
       <PackageReference Include="MediatR" Version="13.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.AspNetCore.Http.Features">
+        <HintPath>..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\9.0.4\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>

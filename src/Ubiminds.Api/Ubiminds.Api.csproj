@@ -25,6 +25,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Ubiminds.Application\Ubiminds.Application.csproj" />
       <ProjectReference Include="..\Ubiminds.Domain\Ubiminds.Domain.csproj" />
+      <ProjectReference Include="..\Ubiminds.Infrastructure\Ubiminds.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

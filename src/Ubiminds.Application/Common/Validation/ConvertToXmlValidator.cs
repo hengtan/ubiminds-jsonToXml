@@ -1,6 +1,7 @@
 using FluentValidation;
+using Ubiminds.Application.Commands.ConvertToXml;
 
-namespace Ubiminds.Application.Commands.ConvertToXml;
+namespace Ubiminds.Application.Common.Validation;
 
 public class ConvertToXmlValidator : AbstractValidator<ConvertToXmlCommand>
 {

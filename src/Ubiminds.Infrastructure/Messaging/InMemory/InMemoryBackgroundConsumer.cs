@@ -4,20 +4,25 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Ubiminds.Domain.Models.InputModels;
 using Ubiminds.Infrastructure.Configuration;
-using Ubiminds.Infrastructure.Xml.Interfaces;
+using Ubiminds.Infrastructure.Interfaces;
 
 namespace Ubiminds.Infrastructure.Messaging.InMemory;
 
 public sealed class InMemoryBackgroundConsumer(
     InMemoryQueue queue,
     ILogger<InMemoryBackgroundConsumer> logger,
-    IXmlConverter xmlConverter,
+    IXmlConverterService xmlConverter,
     IOptions<XmlOutputSettings> outputSettings)
     : BackgroundService
 {
     private readonly InMemoryQueue _queue = queue ?? throw new ArgumentNullException(nameof(queue));
-    private readonly ILogger<InMemoryBackgroundConsumer> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    private readonly IXmlConverter _xmlConverter = xmlConverter ?? throw new ArgumentNullException(nameof(xmlConverter));
+
+    private readonly ILogger<InMemoryBackgroundConsumer> _logger =
+        logger ?? throw new ArgumentNullException(nameof(logger));
+
+    private readonly IXmlConverterService
+        _xmlConverter = xmlConverter ?? throw new ArgumentNullException(nameof(xmlConverter));
+
     private readonly string _outputDirectory = ResolveOutputPath(outputSettings?.Value?.OutputDirectory);
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -50,19 +55,20 @@ public sealed class InMemoryBackgroundConsumer(
     {
         if (!data.IsValidForXml())
         {
-            _logger.LogWarning("Skipped XML generation: business rule not satisfied | Status={Status}, PublishDate={PublishDate}",
+            _logger.LogWarning(
+                "Skipped XML generation: business rule not satisfied | Status={Status}, PublishDate={PublishDate}",
                 data.Status, data.PublishDate);
             return;
         }
 
         try
         {
-            var xml = _xmlConverter.Serialize(data);
+            var xml = _xmlConverter.ConvertToXml(data);
             var filePath = GenerateFilePathWithTimestamp(data.Title);
 
             await File.WriteAllTextAsync(filePath, xml, Encoding.UTF8, token);
 
-            _logger.LogInformation("✅ XML file successfully generated at: {FilePath}", filePath);
+            _logger.LogInformation("XML file successfully generated at: {FilePath}", filePath);
         }
         catch (Exception ex)
         {
@@ -81,7 +87,7 @@ public sealed class InMemoryBackgroundConsumer(
         if (!Directory.Exists(_outputDirectory))
         {
             Directory.CreateDirectory(_outputDirectory);
-            _logger.LogInformation("📁 Output directory created at: {OutputDirectory}", _outputDirectory);
+            _logger.LogInformation("Output directory created at: {OutputDirectory}", _outputDirectory);
         }
     }
 

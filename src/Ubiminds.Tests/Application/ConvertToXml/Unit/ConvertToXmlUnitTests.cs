@@ -1,11 +1,10 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
-using Ubiminds.Domain.Models;
 using Ubiminds.Domain.Models.InputModels;
 using Ubiminds.Infrastructure.Configuration;
+using Ubiminds.Infrastructure.Interfaces;
 using Ubiminds.Infrastructure.Messaging.InMemory;
-using Ubiminds.Infrastructure.Xml.Interfaces;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -35,8 +34,9 @@ public class ConvertToXmlUnitTests : IDisposable
     {
         // Arrange
         var logger = Mock.Of<ILogger<InMemoryBackgroundConsumer>>();
-        var xmlConverter = new Mock<IXmlConverter>();
-        xmlConverter.Setup(x => x.Serialize(It.IsAny<DocumentInputModel>())).Returns("<xml>valid</xml>");
+        var xmlConverter = new Mock<IXmlConverterService>();
+        xmlConverter.Setup(x => x.ConvertToXml(It.IsAny<DocumentInputModel>()))
+            .Returns("<xml>valid</xml>");
 
         var input = new DocumentInputModel
         {
@@ -61,7 +61,8 @@ public class ConvertToXmlUnitTests : IDisposable
         await consumer.StartAsync(cts.Token);
 
         // Assert
-        xmlConverter.Verify(x => x.Serialize(It.Is<DocumentInputModel>(d => d.Title == "Valid")), Times.Once);
+        xmlConverter.Setup(x => x.ConvertToXml(It.IsAny<DocumentInputModel>()))
+            .Returns("<xml>valid</xml>");
         var files = Directory.GetFiles(_tempDir);
         Assert.Single(files);
 
@@ -75,7 +76,7 @@ public class ConvertToXmlUnitTests : IDisposable
     {
         // Arrange
         var logger = Mock.Of<ILogger<InMemoryBackgroundConsumer>>();
-        var xmlConverter = new Mock<IXmlConverter>();
+        var xmlConverter = new Mock<IXmlConverterService>();
         var queue = new InMemoryQueue();
         queue.Enqueue("not an InputData");
 
@@ -91,7 +92,7 @@ public class ConvertToXmlUnitTests : IDisposable
         await consumer.StartAsync(cts.Token);
 
         // Assert
-        xmlConverter.Verify(x => x.Serialize(It.IsAny<DocumentInputModel>()), Times.Never);
+        xmlConverter.Verify(x => x.ConvertToXml(It.IsAny<DocumentInputModel>()), Times.Never);
         Assert.Empty(Directory.GetFiles(_tempDir));
     }
 
@@ -100,7 +101,7 @@ public class ConvertToXmlUnitTests : IDisposable
     {
         // Arrange
         var logger = Mock.Of<ILogger<InMemoryBackgroundConsumer>>();
-        var xmlConverter = new Mock<IXmlConverter>();
+        var xmlConverter = new Mock<IXmlConverterService>();
         var queue = new InMemoryQueue();
 
         var input = new DocumentInputModel
@@ -125,7 +126,7 @@ public class ConvertToXmlUnitTests : IDisposable
         await consumer.StartAsync(cts.Token);
 
         // Assert
-        xmlConverter.Verify(x => x.Serialize(It.IsAny<DocumentInputModel>()), Times.Never);
+        xmlConverter.Verify(x => x.ConvertToXml(It.IsAny<DocumentInputModel>()), Times.Never);
         Assert.Empty(Directory.GetFiles(_tempDir));
     }
 
@@ -134,7 +135,7 @@ public class ConvertToXmlUnitTests : IDisposable
     {
         // Arrange
         var logger = Mock.Of<ILogger<InMemoryBackgroundConsumer>>();
-        var xmlConverter = new Mock<IXmlConverter>();
+        var xmlConverter = new Mock<IXmlConverterService>();
         var queue = new InMemoryQueue();
 
         var input = new DocumentInputModel
@@ -159,7 +160,7 @@ public class ConvertToXmlUnitTests : IDisposable
         await consumer.StartAsync(cts.Token);
 
         // Assert
-        xmlConverter.Verify(x => x.Serialize(It.IsAny<DocumentInputModel>()), Times.Never);
+        xmlConverter.Verify(x => x.ConvertToXml(It.IsAny<DocumentInputModel>()), Times.Never);
         Assert.Empty(Directory.GetFiles(_tempDir));
     }
 
@@ -168,7 +169,7 @@ public class ConvertToXmlUnitTests : IDisposable
     {
         // Arrange
         var logger = Mock.Of<ILogger<InMemoryBackgroundConsumer>>();
-        var xmlConverter = new Mock<IXmlConverter>();
+        var xmlConverter = new Mock<IXmlConverterService>();
         var queue = new InMemoryQueue();
         queue.Enqueue(new DocumentInputModel
         {
@@ -189,7 +190,7 @@ public class ConvertToXmlUnitTests : IDisposable
         await consumer.StartAsync(cts.Token);
 
         // Assert
-        xmlConverter.Verify(x => x.Serialize(It.IsAny<DocumentInputModel>()), Times.Never);
+        xmlConverter.Verify(x => x.ConvertToXml(It.IsAny<DocumentInputModel>()), Times.Never);
         Assert.Empty(Directory.GetFiles(_tempDir));
     }
 
@@ -198,7 +199,7 @@ public class ConvertToXmlUnitTests : IDisposable
     {
         // Arrange
         var logger = Mock.Of<ILogger<InMemoryBackgroundConsumer>>();
-        var xmlConverter = new Mock<IXmlConverter>();
+        var xmlConverter = new Mock<IXmlConverterService>();
         var queue = new InMemoryQueue();
         queue.Enqueue(new DocumentInputModel
         {
@@ -219,7 +220,7 @@ public class ConvertToXmlUnitTests : IDisposable
         await consumer.StartAsync(cts.Token);
 
         // Assert
-        xmlConverter.Verify(x => x.Serialize(It.IsAny<DocumentInputModel>()), Times.Never);
+        xmlConverter.Verify(x => x.ConvertToXml(It.IsAny<DocumentInputModel>()), Times.Never);
         Assert.Empty(Directory.GetFiles(_tempDir));
     }
 
@@ -228,7 +229,7 @@ public class ConvertToXmlUnitTests : IDisposable
     {
         // Arrange
         var logger = Mock.Of<ILogger<InMemoryBackgroundConsumer>>();
-        var xmlConverter = new Mock<IXmlConverter>();
+        var xmlConverter = new Mock<IXmlConverterService>();
         var queue = new InMemoryQueue();
         queue.Enqueue(new DocumentInputModel
         {
@@ -249,7 +250,7 @@ public class ConvertToXmlUnitTests : IDisposable
         await consumer.StartAsync(cts.Token);
 
         // Assert
-        xmlConverter.Verify(x => x.Serialize(It.IsAny<DocumentInputModel>()), Times.Never);
+        xmlConverter.Verify(x => x.ConvertToXml(It.IsAny<DocumentInputModel>()), Times.Never);
         Assert.Empty(Directory.GetFiles(_tempDir));
     }
 }

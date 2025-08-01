@@ -25,6 +25,12 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
+    builder.WebHost.ConfigureKestrel(options =>
+    {
+        options.ListenLocalhost(5000);
+        options.ListenLocalhost(5001, listenOptions => listenOptions.UseHttps());
+    });
+
     builder.Host.UseSerilog();
 
     builder.Services.AddControllers();
@@ -37,7 +43,7 @@ try
 
     var app = builder.Build();
 
-    if (app.Environment.IsDevelopment())
+    if (!app.Environment.IsProduction())
     {
         app.UseSwaggerDocumentation();
     }

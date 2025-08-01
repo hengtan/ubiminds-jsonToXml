@@ -7,12 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>        
+        <ProjectReference Include="..\Ubiminds.Application\Ubiminds.Application.csproj" />        
         <ProjectReference Include="..\Ubiminds.Domain\Ubiminds.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
       <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Interfaces\" />
     </ItemGroup>
     
 </Project>
